@@ -1,0 +1,261 @@
+---- 命令行，快速编辑模式下
+--选中，右键 —— 复制
+--直接右键 —— 粘贴
+
+
+
+-- 连接数据库
+mysql -h 127.0.0.1 -p 3306 -u root -p
+此处输入密码
+
+--查看当前用户
+select user();
+
+--查看字符集编码
+show variables like '%char%';
+
+-- 修改密码
+alter user root@localhost identified by '原密码'
+set password = '新密码'
+
+-- 刷新缓存，修改密码后立即生效
+flush privileges;
+
+
+
+
+
+
+
+
+
+
+
+
+-- 库操作
+-- 查看数据库
+show databases;
+-- 创建数据库
+create database python_mysql;
+-- 创建数据库并制定编码
+create database python_mysql charset utf8;
+-- 修改数据库
+alter database python_mysql character set utf8;
+-- 查所有的数据库
+show databases;
+-- 删除库
+drop database python_mysql;
+
+
+-- 表操作
+-- 使用数据库
+use python_mysql;
+-- 创建表
+create table t1(
+    id int,
+    name char(8)
+);
+-- 查所有的表
+show tables;
+-- 查看表结构
+desc table_name;
+-- 改表
+alter table t1 modify name char(3);
+alter table t1 change name name1 char(5);
+-- 删表
+drop table t1
+
+
+-- 记录操作
+-- 增
+insert into t1 values(1, 'abc'), (2, 'qaz'), (3, 'xyz');
+-- 查
+select * from t1;
+-- 改
+update t1 set name = 'ryan' where id = 1;
+-- 删
+delete from t1 where id = 3;
+
+
+
+
+-- 存储引擎相关
+-- 查看当前的默认存储引擎
+show variables like 'default_storage_engine';
+-- 查看当前数据库支持的存储引擎
+show engines \G;
+show engines;
+-- 建表时，指定引擎
+create table t2(
+    id int,
+    name varchar(18)
+) engine = myisam;
+-- 修改引擎
+alter table t2 engine = innodb;
+show create table t2;
+
+
+
+-- 数据类型相关
+-- 整数 小数
+create table t3(
+    a int,
+    b int(5)  -- 限制长度，但不起作用
+);
+insert into t3 values(1, 2), (23456, 82736), (1, 7);
+insert into t3 values(1, 2), (23456, 38283368), (1, 7);
+select * from t3;
+
+create table t4(
+    id1 float(5,2),
+    id2 double(5,2),
+    id3 decimal(5,2)  --decimal默认值是(10,0)的整数
+);
+insert into t4 values (1.23,1.23,1.23);
+insert into t4 values (1.234,1.234,1.234);
+select * from t4;
+
+-- datetime, date, time
+create table t5 (d date,t time,dt datetime);
+insert into t5 values(now(), now(), now());
+select * from t5;
+
+-- 字符串 char 定长, varchar 可变长
+create table t6 (v varchar(5),c char(5));
+insert into t6 values
+    ('abcde', 'abcfg'),
+    ('abs   ', 'abs   '),
+    (' abc ', '  abc');
+select length(v), length(c) from t6;
+
+-- enum 枚举  set 集合
+create table t7 (
+    weekday enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'),
+    yuqian set('抽烟','喝酒','烫头','翻车')
+);
+
+insert into t7 values('MON', '抽烟,喝酒'), ('FRI', '烫头');
+-- 为啥英文字母，数字不行
+--create table t7 (
+--    weekday enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'),
+--    first_qurter set('JAN', 'FEB', 'MAR')
+--);
+--
+--insert into t7 values('MON', '1, 2, 5'), ('FRI', '7, 8, 9');
+
+
+
+
+
+
+--约束
+-- unsigned
+-- not null
+-- unique
+-- default
+-- auto_increment
+-- primary key
+-- foreign key
+
+create table press(
+    id int primary key auto_increment,
+    name char(12) not null,
+    addr varchar(18)
+);
+
+create table book(
+    id int primary key auto_increment,
+    name char(12) not null,
+    price float(5, 2) not null,
+    press_id int,
+    foreign key(press_id) references press(id)
+    on delete cascade  -- 不加的话，需先删除外键，再添加
+    on update cascade
+);
+
+
+insert into press values
+    ('人民文学', '北京×××'),
+    ('甲骨文', '北京×××'),
+    ('浙江古籍', '杭州×××');
+
+insert into book values
+    ('汪曾祺散文', 23.23, 1),
+    ('梁秋实散文', 23.17, 1),
+    ('条顿骑士团', 63.21, 2),
+    ('医院骑士团', 51.23, 2),
+    ('西湖梦寻', 13.23, 3);
+
+insert into book(name, price, press_id) values('哈利波特', 123.12, 1);
+
+delete from press where id = 1;
+
+
+
+
+create table a_class(
+    cid int primary key auto_increment,
+    caption char(10) not null
+);
+
+insert into a_class(caption) values('三年二班'), ('一年三班'), ('三年一班');
+
+create table a_student(
+    sid int primary key auto_increment,
+    sname char(10) not null,
+    gender enum('男', '女'),
+    class_id int,
+    foreign key(class_id) references a_class(cid)
+    on delete cascade
+    on update cascade
+);
+
+insert into a_student(sname, gender, class_id) values('钢弹', '女', 1), ('铁锤', '女', 1), ('山炮', '男', 2);
+
+create table a_teacher(
+    tid int primary key auto_increment,
+    tname char(10) not null
+);
+
+insert into a_teacher(tname) values('波多'), ('北岛'), ('风间');
+
+create table a_course(
+    cid int primary key auto_increment,
+    cname char(10) not null,
+    teacher_id int,
+    foreign key(teacher_id) references a_teacher(tid)
+    on delete cascade
+    on update cascade
+);
+
+insert into a_course(cname, teacher_id) values('生物', 1), ('体育', 1), ('物理', 2);
+
+create table a_score(
+    sid int primary key auto_increment,
+    student_id int,
+    course_id int,
+    score int not null,
+    foreign key(student_id) references a_student(sid),
+    foreign key(course_id) references a_course(cid)
+) engine=innodb default charset=utf8;
+
+
+insert into a_score(student_id, course_id, score) values(1, 1, 60), (1, 2, 59), (2, 2, 100);
+
+
+select * from a_score;
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 学习风险驾驶舱证券投资业务总部相关模块功能
+ 参与并表系统期货、香港、投行、资管、资本子公司数据填报讨论

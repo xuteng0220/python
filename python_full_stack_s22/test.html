@@ -1,0 +1,184 @@
+<!DOCTYPE html>  <!--声明是h5文档-->
+<!---->
+
+<html lang="en">  <!--文档的主要语言是英语-->
+
+<head>  <!--定义头部-->
+    <meta http-equiv="content-type" charset="UTF-8">
+    <!--上面这一行可以简写如下： <meta charset="UTF-8"> -->
+    <meta name="keywords" content="keywords 用于搜索 seo">
+    <meta name="description" content="description 是对这个html文件的描述，在搜索引擎里会被搜索显示出来">
+    <title>学习html</title> <!--鼠标悬停在浏览器标签时显示的文字-->
+</head>
+
+<body> <!--定义文件体-->
+
+以下是内联便签
+<b>加粗</b>
+<i>斜体</i>
+<u>下划线</u>
+<s>删除线</s>
+
+以下是块级标签
+<br> <!--换行-->
+<p>这是一个段落</p>
+
+<h1>这是1级标题</h1>
+<hr> <!--水平线-->
+<h6>这是6级标题</h6>
+
+<br>
+特殊字符: &gt; &lt; &amp; &yen; &copy; &reg;
+
+<div>块级标签，通过css控制其内容的格式</div>
+<span>内联标签，通过css控制其内容的格式</span>
+
+<!--图片-->
+<img src="html_test.jpeg" alt="不成功显示这些文字" title="鼠标悬停显示的文字" width="20" height="20"> <br>
+
+
+<!--超链接-->
+<a href="https://www.baidu.com" target="_blank">百度首页</a>  <!--属性_self：在当前标签页打开-->
+<div>URL地址由4部分组成 <br>
+第1部分：为协议：http://、ftp://等 <br>
+第2部分：为站点地址：可以是域名或IP地址 <br>
+第3部分：为页面在站点中的目录：stu <br>
+第4部分：为页面名称，例如 index.html</div>
+
+<!--无序列表-->
+<ul type="disc">  <!--disc 实心圆点   circle 空心圆点   square 实心方块   none 无-->
+    <li>第一项</li>
+    <li>第二项</li>
+</ul>
+
+<!--有序列表-->
+<ol type="1" start="2">  <!--start 从哪里开始计数。 type计数方式，可选1 A a I i-->
+  <li>第一项</li>
+  <li>第二项</li>
+</ol>
+
+
+<dl> <!--标题列表 definition list-->
+  <dt>标题1</dt>  <!--definition term-->
+  <dd>内容1</dd>  <!--definition description-->
+  <dt>标题2</dt>
+  <dd>内容1</dd>
+  <dd>内容2</dd>
+</dl>
+
+
+<table border="1" cellpadding="3" cellspacing="5">  <!--表格-->
+    <thead> <!--表头-->
+    <tr> <!--行-->
+        <th>序号</th>
+        <th>姓名</th>
+        <th>爱好</th>
+    </tr>
+    </thead>
+    <tbody> <!--表身-->
+    <tr>
+        <td>1</td>
+        <td colspan="2">ryan</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>football</td>
+
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>xt</td>
+        <td rowspan="2">bicycle</td>  <!--竖跨行，没效果-->
+    </tbody>
+</table>
+
+
+<form action="http://127.0.0.1:8001">
+    <p>
+        用户名<input type="text" name="请输入">  <!--单行输入文本-->
+    </p>
+
+    <p>
+        密码<input type="password" name="密码">  <!--密码输入框-->
+    </p>
+
+    <p>
+        用户名<input type="text" value="readonly" readonly>  <!--单行输入文本-->
+    </p>
+
+    <p>
+        密码<input type="password" value="password" disabled>  <!--密码输入框-->
+    </p>
+
+
+    <p>
+        <input type="radio" name="gender" value="1" checked>男  <!--单元框， name 键，  value 将被提交的值，  checked="checked"  checked为简写 默认选中-->
+        <input type="radio" name="gender" value="2">  女
+    </p>
+
+    <p>
+        <input type="date">  <!--日期输入框-->
+    </p>
+
+    <p>
+        <input type="checkbox" name="hobby" checked value="1">足球  <!--复选框-->
+        <input type="checkbox" name="hobby" value="2">橄榄球
+        <input type="checkbox" name="hobby" value="3">网球
+    </p>
+
+
+
+    <p>
+        <input type="reset" value="reset">
+    </p>
+
+    <p>
+        <input type="button" value="普通按钮">
+    </p>
+
+    <p>
+        <input type="hidden">  <!--隐藏标签-->
+    </p>
+
+    <p>
+        <input type="file">  <!--选择文件-->
+    </p>
+
+    <p>
+        <input type="submit">  <!--提交按钮-->
+    </p>
+
+    <p>
+        <select name="city" id="3">
+            <option value="001">北京</option>
+            <option value="002">上海</option>
+            <option value="003">深圳</option>
+        </select>
+        <select name="city" multiple="multiple">  <!--下拉框多选-->
+            <option value="001">北京</option>
+            <option value="002">上海</option>
+            <option value="003">深圳</option>
+        </select>
+    </p>
+
+    <div>
+        <textarea name="memo" id="memo" cols="30" rows="10">
+            昨夜寒蛩不住鸣。
+            惊回千里梦，已三更。
+            起来独自绕阶行。
+            人悄悄，帘外月胧明。
+            白首为功名。
+            旧山松竹老，阻归程
+            欲将心事付瑶琴。
+            知音少，弦断有谁听？
+        </textarea>
+    </div>
+
+</form>
+
+
+
+</body>
+</html>
+
+
