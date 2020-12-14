@@ -1,11 +1,14 @@
-# while 实现循环for的功能
+# class Student(object):
+#     def __init__(self, name):
+#         self.name = name
+#     def __str__(self):
+#         return 'Student object (name=%s)' % self.name
+#     __repr__ = __str__
 
-s = 'abcdefg'
 
-s1 = s.__iter__()
-while True:
-    try:
-        print(s1.__next__())
-    except StopIteration:
-        break
+# s = Student('ryan')
+# print(s)
 
+
+test = input()
+print(test)

@@ -310,6 +310,137 @@ p.quit()
 print(p.card)
 
 
+# 方法一
+import random
+import copy
+show = """
+    1. 洗牌
+    2. 随机抽取一张
+    3. 指定抽取一张
+    4. 从小到大排序
+    5. 退出
+"""
+class Human:
+    def __init__(self, name):
+        self.name = name
+    def randint(self,obj,n):
+        print(f"{self.name}您随机抽取的牌为：{card[r]}")
+    def choose(self,m,card):
+        print(f"{self.name}您抽取的第{m+1}张牌为：{card[m]}")
+    def shuffle(self, obj):
+        random.shuffle(obj.poker(num, color))
+num = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+color = ["黑桃", "红桃", "梅花", "方片"]
+class Poker:
+    def __init__(self, num, color):
+        self.num = num
+        self.color = color
+        self.poker_list = []
+        self.card_list = []
+    def poker(self, num, color):
+        for i in num:
+            for x in color:
+                a = x + i
+                self.poker_list.append(a)
+        return self.poker_list
+    def shuffle(self,obj):
+        random.shuffle(obj)
+    def take(self,obj):
+        self.card_list.append(obj)
+    def sort(self):
+        p=Poker(num,color)
+        print(poke.poker(num, color))
+poke = Poker(num, color)
+card = poke.poker(num, color)
+# print(poke.poker(num, color))
+l=[]
+user = input("请输入您的用户名:").strip()
+while 1:
+    people=Human(user)
+    print(show)
+    n = input("请输入您的选择:").strip()
+    if n.isdecimal() and 1 <= int(n)<=5:
+        n=int(n)
+        if n==1:
+            poke.shuffle(card)
+            # print(card)
+        elif n==2:
+            r=random.randint(0,51)
+            people.randint(card,r)
+            poke.take(card[r])
+        elif n==3:
+            m = input("请输入您选择牌的数字:").strip()
+            if m.isdecimal() and 1 <= int(m) <= 52:
+                m=int(m)-1
+                people.choose(m,card)
+                poke.take(card[m])
+            else:
+                print("您的输入有误,请您重新输入:")
+                continue
+        elif n==4:
+            poke.sort()
+        elif n==5:
+            break
+    else:
+        print("您的输入有误,请您重新输入:")
+        continue
 
 
+# 法二:
+import random
+
+class Poker:
+
+    num_list = ['A'] +[i for i in range(2,11)] + list('JQK')
+    color_list = '黑桃 红桃 方片 梅花'.split()
+
+    def __init__(self,name):
+        self.name = name
+        self.card = [(color, num) for color in self.color_list for num in self.num_list]
+
+
+    def shuffle(self):
+        random.shuffle(self.card)
+        return self.card
+
+    def _random(self):
+        random_card = random.choice(self.card)
+        return  f'{self.name} 您随机抽取的牌为：{random_card[0]}{random_card[1]}'
+
+    def appoint(self):
+        appoint_num = int(input('抽取第几张?(1~52)'))
+        return f'{self.name} 您抽取的第{appoint_num}张牌为：{self.card[appoint_num-1][0]}{self.card[appoint_num-1][1]}'
+
+    def sort(self):
+        self.card = [(color, num) for num in self.num_list for color in self.color_list]
+        return [(color, num) for num in self.num_list for color in self. color_list]
+
+    def exit(self):
+        exit()
+
+
+choice_dict = {
+    1: Poker.shuffle,
+    2: Poker._random,
+    3: Poker.appoint,
+    4: Poker.sort,
+    5: Poker.exit,
+
+}
+
+while 1:
+    name = input('请输入用户名').strip()
+    obj = Poker(name)
+    while 1:
+        choice_num = input('''
+        1. 洗牌
+        2. 随机抽取一张
+        3. 指定抽取一张
+        4. 从小到大排序
+        5. 退出
+        ''').strip()
+        try:
+            print(choice_dict[int(choice_num)](obj))
+        except Exception :
+            print('输入有误')
 

@@ -36,22 +36,23 @@
 # c1 = C()
 # c1.func()
 # 可以改动上面代码，完成下列需求：对C类实例化一个对象产生一个c1，然后c1.func()
-# 1. 让其执行C类中的func
+# # 1. 让其执行C类中的func
 # class A:
 #     def func(self):
 #         print('in A')
-#
+
 # class B:
 #     def func(self):
 #         print('in B')
-#
+
 # class C(A,B):
 #     def func(self):
 #         print('in C')
-#
+
 # c1 = C()
 # c1.func()
 
+************************************************************************************************
 # 2. 让其执行A类中的func
 class A:
     def func(self):
@@ -61,20 +62,68 @@ class B:
     def func(self):
         print('in B')
 
-# class C(A,B):
-#     def func(self):
-        # super().func()
+class C(A,B):
+	def func(self):
+		super(C, self).func()
+
+c1 = C()
+c1.func()
 
 
-# c1 = C()
-# c1.func()
+
+# # 3. 让其执行B类中的func
+class A:
+    def func(self):
+        print('in A')
+
+class B:
+    def func(self):
+        print('in B')
+
+class C(A,B):
+	def func(self):
+		super(A, self).func()
+
+c1 = C()
+c1.func()
 
 
 
-# 3. 让其执行B类中的func
+
 # 4. 让其既执行C类中的func，又执行A类中的func
+class A:
+    def func(self):
+        print('in A')
+
+class B:
+    def func(self):
+        print('in B')
+
+class C(A,B):
+	def func(self):
+		print('in C')
+		super().func()
+
+c1 = C()
+c1.func()
+
+
 # 5. 让让其既执行C类中的func，又执行B类中的func
-##############################################################################
+class A:
+    def func(self):
+        print('in A')
+
+class B:
+    def func(self):
+        print('in B')
+
+class C(A,B):
+	def func(self):
+		print('in C')
+		super(A, self).func()
+
+c1 = C()
+c1.func()
 
 # # 3.下面代码执行结果是什么？为什么？
 # class Parent(object):
@@ -191,4 +240,4 @@ class B:
 #     pass
 #
 # print(K.__mro__)
-
+写出mro算法的过程，见https://gitee.com/laonanhaipythonquanzhan24qi/19052823040/blob/master/day22/day22%E4%BD%9C%E4%B8%9A.md

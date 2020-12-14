@@ -525,6 +525,32 @@ https://www.cnblogs.com/Eva-J/articles/7156261.html
 
 
 
+类的三大装饰器
+class Classmethod_Demo():
+    role = 'dog'
+
+    @classmethod
+    def func(cls):
+        print(cls.role)
+
+    def __init__(self):
+        pass
+
+    def func1(self):
+        print('in func1')
+
+Classmethod_Demo.func()
+
+
+demo1 = Classmethod_Demo()
+demo1.func() # 实例调用类方法
+demo1.func1() # 实例调用实例的绑定方法
+Classmethod_Demo.func() # 类调用类方法
+# Classmethod_Demo.func(demo1) # 报错
+Classmethod_Demo.func1(demo1) # 实例调用实例方法
+# Classmethod_Demo.func1()  # 报错
+
+
 
 
 
